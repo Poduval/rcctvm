@@ -15,7 +15,7 @@ use_build_ignore(c("make_package.R", "make_hexsticker.R",
 # Create or update the DESCRIPTION file
 use_description(fields = list(
   Package = "rcctvm",
-  Version = "0.0.2",
+  Version = "0.0.3",
   Title = "R package developed by RCC Thiruvananthapuram",
   Description = "This contains statistical models in biomedical research.",
   URL = "https://github.com/Poduval/rcctvm",
@@ -43,7 +43,7 @@ if (FALSE) {
 
 }
 
-# add & load functions ====
+# functions ====
 # styler::style_file("R/add2vars.R")
 # styler::style_pkg()
 
@@ -52,10 +52,15 @@ exists("add2vars", where = globalenv(), inherits = FALSE)
 load_all() # DON'T USE source()
 add2vars(12, 14)
 
+# data ====
+source("misc/data/programTable.R", verbose = FALSE)
+programTable
+use_data(programTable, overwrite = TRUE)
+
 # setup tests ====
 use_testthat()
 
-#' paste the below code inside
+#' << PASTE THE CODE INSIDE use_test("add2vars") >>
 test_that("add2vars returns correct value", {
   expect_equal(add2vars(2, 5), 7)
   expect_equal(add2vars(-10, 2), -8)
@@ -72,6 +77,8 @@ use_news_md()
 #' this is used to avoid manual modifications every time
 #'
 news_text <- c(
+  "\n## Version 0.0.3", "",
+  "- Added first data set",
   "\n## Version 0.0.2", "",
   "- Added `onLoad()` & `onAttach()` features",
   "\n## Version 0.0.1", "",
@@ -79,8 +86,10 @@ news_text <- c(
 
 write(news_text, file = "NEWS.md", append = FALSE)
 
+## update readme ====
 build_readme()
 
+## update vignette ====
 use_vignette("add2vars", title = "Adding 2 variables")
 build_vignettes()
 
@@ -113,4 +122,6 @@ library(rcctvm)
 getOption("rcctvm.division")
 
 add2vars(2, 3)
-
+data(package = "rcctvm")
+dplyr::glimpse(rcctvm::programTable)
+?rcctvm::programTable
