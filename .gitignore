@@ -3,8 +3,11 @@
 .RData
 .Ruserdata
 make_package.R
-materials
 .Rdata
 .httr-oauth
 .DS_Store
 .quarto
+inst/doc
+/doc/
+/Meta/
+misc

@@ -1,6 +1,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^make_package\.R$
+^make_hexsticker\.R$
 ^release$
+^LICENSE\.md$
+^README\.Rmd$
+^doc$
+^Meta$
 ^misc$
-^rcctvm\.Rproj$
