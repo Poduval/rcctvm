@@ -42,19 +42,27 @@ if (FALSE) {
   use_package("stringi", type = "Suggest")
 
 }
-use_testthat()
 
 # add & load functions ====
 # styler::style_file("R/add2vars.R")
 # styler::style_pkg()
 
 use_r("add2vars")
-use_test("add2vars")
-test() # this is done without loading the function in global environment
 exists("add2vars", where = globalenv(), inherits = FALSE)
-
 load_all() # DON'T USE source()
 add2vars(12, 14)
+
+# setup tests ====
+use_testthat()
+use_test("add2vars")
+
+#' paste the below code inside
+test_that("add2vars returns correct value", {
+  expect_equal(add2vars(2, 5), 7)
+  expect_equal(add2vars(-10, 2), -8)
+})
+
+test() # this is done without loading the function in global environment
 
 # documentations ====
 document() # package documentation
@@ -68,6 +76,7 @@ if (FALSE) {
 
   use_readme_md()
   use_readme_rmd()
+  build_readme()
 
   #' ==============
   # << UPDATE both above >>
@@ -84,7 +93,6 @@ if (FALSE) {
 
 }
 
-build_readme()
 build_vignettes()
 
 # package checks ====
