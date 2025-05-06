@@ -1,13 +1,10 @@
 
-<img src="man/figures/hexsticker.png" align="right" height="140" />
-
 # rcctvm
 
-<!-- badges: start -->
-<!-- badges: end -->
+<img src="man/figures/hexsticker.png" align="right" height="140" />
 
-The goal of `rcctvm` is to produce top notch statistical models in
-biomedical research.
+The goal of `rcctvm` is to produce top notch statistical models in bio
+medical research.
 
 ## Installation
 

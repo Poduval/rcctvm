@@ -1,8 +1,8 @@
 ---
-title: "add2vars"
+title: "Adding 2 variables"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{add2vars}
+  %\VignetteIndexEntry{Adding 2 variables}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,5 +16,4 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(rcctvm)
-add2vars(2, 3)
 ```

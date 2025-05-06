@@ -54,47 +54,34 @@ add2vars(12, 14)
 
 # setup tests ====
 use_testthat()
-use_test("add2vars")
 
 #' paste the below code inside
 test_that("add2vars returns correct value", {
   expect_equal(add2vars(2, 5), 7)
   expect_equal(add2vars(-10, 2), -8)
 })
-
+use_test("add2vars")
 test() # this is done without loading the function in global environment
 
 # documentations ====
 document() # package documentation
 
-#' ONE TIME - update contents manually
-#' It does ask whethere to replace
+## update NEWS ====
+use_news_md()
+
+#' this is used to avoid manual modifications every time
 #'
-if (FALSE) {
+news_text <- c(
+  "\n## Version 0.0.2", "",
+  "- Added `onLoad()` & `onAttach()` features",
+  "\n## Version 0.0.1", "",
+  "- Initial GitHub submission.")
 
-  use_news_md()
-
-  use_readme_md()
-  use_readme_rmd()
-
-
-  #' ==============
-  # << UPDATE both above >>
-  # <!-- Logo in top-right corner -->
-  # <img src="man/figures/hexsticker.png" align="right" height="140" />
-  # produce top notch statistical models in biomedical research.
-  # add2vars(2, 3)
-  #' ==============
-
-  use_vignette("add2vars")
-  #' ==============
-  #' << UPDATE >>
-  #' add2vars(2, 3)
-  #' ==============
-
-}
+write(news_text, file = "NEWS.md", append = FALSE)
 
 build_readme()
+
+use_vignette("add2vars", title = "Adding 2 variables")
 build_vignettes()
 
 # package checks ====
@@ -123,6 +110,7 @@ getNamespaceImports("rcctvm")
 getNamespaceExports("rcctvm")
 
 library(rcctvm)
+getOption("rcctvm.division")
 
 add2vars(2, 3)
-getOption("rcctvm.division")
+
