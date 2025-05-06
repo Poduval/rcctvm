@@ -69,6 +69,7 @@ use_test("add2vars")
 test() # this is done without loading the function in global environment
 
 # documentations ====
+source("misc/data/programTable.R", verbose = FALSE) # producing hex sticker
 document() # package documentation
 
 ## update NEWS ====
