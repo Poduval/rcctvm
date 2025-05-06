@@ -1,15 +1,5 @@
 # initialize ====
-#' https://devtools.r-lib.org
-#' https://usethis.r-lib.org
-#'
-
 library(devtools)
-#' Loading required package: usethis
-#'
-dev_sitrep() # report package development situation
-
-# devtools::update_packages("devtools")
-# devtools::install_dev_deps()
 
 # create_package(path = getwd()) # create/update description, namespace, .Rproj
 # use_git() # setup git configuration
@@ -25,7 +15,7 @@ use_build_ignore(c("make_package.R", "make_hexsticker.R",
 # Create or update the DESCRIPTION file
 use_description(fields = list(
   Package = "rcctvm",
-  Version = "0.0.1",
+  Version = "0.0.2",
   Title = "R package developed by RCC Thiruvananthapuram",
   Description = "This contains statistical models in biomedical research.",
   URL = "https://github.com/Poduval/rcctvm",
@@ -44,10 +34,14 @@ use_author(given = "Jagathnath", family = "K.M", role = c("aut"))
 use_mit_license("RCC Thiruvananthapuram")
 
 #' test if the required packages are installed
+#' recommended to add these via roxygen2 documentation
 #'
-requireNamespace(c("stringr", "stringi"), quietly = TRUE)
-use_package("stringr")
-use_package("stringi", type = "Suggest")
+if (FALSE) {
+  requireNamespace(c("stringr", "stringi"), quietly = TRUE)
+  use_package("stringr")
+  use_package("stringi", type = "Suggest")
+
+}
 use_testthat()
 
 # add & load functions ====
@@ -88,7 +82,6 @@ if (FALSE) {
   #' add2vars(2, 3)
   #' ==============
 
-
 }
 
 build_readme()
@@ -98,7 +91,6 @@ build_vignettes()
 check()
 
 # package installation ====
-
 install()
 
 if(!dir.exists("release")) dir.create("release")
@@ -121,4 +113,6 @@ getNamespaceImports("rcctvm")
 getNamespaceExports("rcctvm")
 
 library(rcctvm)
+
 add2vars(2, 3)
+getOption("rcctvm.division")
