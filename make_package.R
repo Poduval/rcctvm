@@ -103,7 +103,7 @@ if(!dir.exists("release")) dir.create("release")
 build(path = "release/", binary = TRUE, vignettes = TRUE)
 
 # package testing ====
-# ============================ RESTART =========================== #
+# ============================ RESTART R SESSION =========================== #
 
 packageVersion("rcctvm")
 packageDate("rcctvm")
