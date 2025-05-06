@@ -1,7 +1,28 @@
+# Initialize ====
+
 library(devtools)
 
-# create_package(path = getwd())
+create_package(path = getwd())
+
 # use_git()
+
+# description
+# Package: rcctvm
+# Title: What the Package Does (One Line, Title Case)
+# Version: 0.0.0.1
+# Authors@R:
+#   person("Rakesh", "Poduval", , "rakesh.poduval@rcctvm.com", role = c("aut", "cre"))
+# Description: What the package does (one paragraph).
+# License: MIT + file LICENSE
+# Encoding: UTF-8
+# Roxygen: list(markdown = TRUE)
+# RoxygenNote: 7.3.2
+# Imports:
+#   stringr
+# Suggests:
+#   testthat (>= 3.0.0)
+# Config/testthat/edition: 3
+
 
 # adding a function ====
 use_r("add2vars")
