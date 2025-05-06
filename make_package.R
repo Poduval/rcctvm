@@ -76,12 +76,13 @@ if (FALSE) {
 
   use_readme_md()
   use_readme_rmd()
-  build_readme()
+
 
   #' ==============
   # << UPDATE both above >>
   # <!-- Logo in top-right corner -->
   # <img src="man/figures/hexsticker.png" align="right" height="140" />
+  # produce top notch statistical models in biomedical research.
   # add2vars(2, 3)
   #' ==============
 
@@ -93,6 +94,7 @@ if (FALSE) {
 
 }
 
+build_readme()
 build_vignettes()
 
 # package checks ====
