@@ -17,8 +17,9 @@ check()
 use_mit_license()
 document()
 
-use_git_ignore(c("make_package.R"))
-use_build_ignore(c("make_package.R", "make_hexsticker.R", "release"))
+use_git_ignore(c("make_package.R", "materials"))
+use_build_ignore(c("make_package.R", "make_hexsticker.R",
+                   "release", "materials"))
 
 # use_package("stringr")
 

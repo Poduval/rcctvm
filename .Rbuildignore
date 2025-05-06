@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^make_package\.R$
+^make_hexsticker\.R$
+^release$
+^materials$
