@@ -6,9 +6,10 @@ library(devtools)
 # use_github()
 
 #' ignore extra files and folders
-use_git_ignore(c("make_package.R", "misc"))
-use_build_ignore(c("make_package.R", "make_hexsticker.R",
-                   "release", "misc"))
+# use_git_ignore(c("make_package.R", "workshop-materials"))
+use_build_ignore(c(
+  "make_package.R", "make_hexsticker.R", "data-raw",
+  "release", "workshop-materials"))
 
 # modify description ====
 
@@ -53,9 +54,13 @@ load_all() # DON'T USE source()
 add2vars(12, 14)
 
 # data ====
-source("misc/data/programTable.R", verbose = FALSE)
+source("data-raw/programTable.R", verbose = FALSE)
 programTable
 use_data(programTable, overwrite = TRUE)
+
+source("data-raw/metaTable.R", verbose = FALSE)
+metaTable
+use_data(metaTable, internal = TRUE, overwrite = TRUE)
 
 # setup tests ====
 use_testthat()
@@ -69,7 +74,7 @@ use_test("add2vars")
 test() # this is done without loading the function in global environment
 
 # documentations ====
-source("misc/data/programTable.R", verbose = FALSE) # producing hex sticker
+source("data-raw/make_hexsticker.R", verbose = FALSE) # producing hex sticker
 document() # package documentation
 
 ## update NEWS ====
@@ -111,6 +116,8 @@ packageDate("rcctvm")
 packageDescription("rcctvm")
 help(package = "rcctvm")
 news(package = "rcctvm")
+citation("rcctvm")
+pak::pkg_deps_tree("rcctvm")
 
 vignette(topic = "add2vars", package = "rcctvm")
 browseVignettes(package = "rcctvm")

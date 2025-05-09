@@ -8,4 +8,5 @@
 ^doc$
 ^Meta$
 ^materials$
-^misc$
+^data-raw$
+^workshop-materials$

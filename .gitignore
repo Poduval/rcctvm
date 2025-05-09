@@ -2,7 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-make_package.R
 .Rdata
 .httr-oauth
 .DS_Store
@@ -10,4 +9,3 @@ make_package.R
 inst/doc
 /doc/
 /Meta/
-misc

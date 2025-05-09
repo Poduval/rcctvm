@@ -1,5 +1,5 @@
 .onAttach <- function(libname, pkgname) {
-  msg <- paste0("Welcome to the Regional Cancer Centre, Thiruvananthapuram")
+  msg <- paste0("Attached R package from Regional Cancer Centre, Thiruvananthapuram")
   packageStartupMessage(msg)
 }
 

@@ -8,7 +8,7 @@ medical research.
 
 ## Installation
 
-You can install the development version of rcctvm from
+You can install the development version of `rcctvm` from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -21,7 +21,7 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(rcctvm)
-#> Welcome to the Regional Cancer Centre, Thiruvananthapuram
+#> Attached R package from Regional Cancer Centre, Thiruvananthapuram
 add2vars(2, 3)
 #> [1] 5
 ```
