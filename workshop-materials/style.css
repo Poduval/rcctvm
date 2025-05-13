@@ -1,0 +1,39 @@
+
+.reveal .slide-logo {
+  height: 1000px !important;
+  width: auto !important;
+}
+
+.reveal .quarto-title-block {
+  text-align: left;
+}
+
+/* Title Slide - Title */
+.reveal h1.title {
+  color: #461033;
+  font-size: 2.5em;
+}
+
+/* Title Slide - Author */
+.reveal .quarto-title-author-name {
+  color: #B78E60;
+  font-size: 1.3em;
+}
+
+/* Title Slide - Date */
+.reveal .quarto-title-date {
+  color: black;
+  font-size: 1.1em;
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  color: #B78E60;
+}
+
+.reveal p, .reveal li {
+  color: #461033;
+}
+
+.reveal section {
+  color: #461033;
+}

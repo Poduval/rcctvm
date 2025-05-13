@@ -17,10 +17,11 @@ packageDate("plyr")
 
 packageDescription("dplyr")
 
-pak::pkg_deps("plyr") # slow
-pak::pkg_deps_tree("plyr") # slow
-pak::pkg_deps_explain("plyr", "tibble") # slow
-
+if (FALSE) { # SLOW
+  pak::pkg_deps("plyr")
+  pak::pkg_deps_tree("plyr")
+  pak::pkg_deps_explain("plyr", "tibble")
+}
 help(package = "dplyr")
 news(package = "dplyr")
 
