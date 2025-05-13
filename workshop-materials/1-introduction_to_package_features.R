@@ -7,40 +7,39 @@ devtools::session_info() # alternative & nicer print method
 lapply(.libPaths(), list.dirs, recursive = FALSE, full.names = FALSE)
 
 packageStatus() # summarize information about installed package
-search() # list of attached packages
+ list of attached packages
 
-# package overview ====
+# package description ====
 packageVersion("devtools")
 packageVersion("dplyr")
-
 packageDate("plyr")
-
 packageDescription("dplyr")
 
-if (FALSE) { # SLOW
+if (FALSE) { # SLOW BUT VISUAL
   pak::pkg_deps("plyr")
   pak::pkg_deps_tree("plyr")
   pak::pkg_deps_explain("plyr", "tibble")
 }
+tools::package_dependencies(c("plyr", "dplyr"), recursive = TRUE)
+
+# package namespace ====
+here::here()
+lubridate::as_date(Sys.time())
+ls(getNamespace("here"))
+
+search() # where to find the functions you execute.
+getNamespaceImports("survival") # imports from other packages
+getNamespaceExports("survival") # functions exported by the package
+
+# md (roxygen documentation) ====
 help(package = "dplyr")
 news(package = "dplyr")
-
 vignette(package = "tidyr")
 vignette(topic = "in-packages", package = "tidyr")
 vignette(topic = "programming", package = "dplyr")
 
+# other meta information ====
 citation("tidyverse")
-
-# package namespace ====
-getNamespaceImports("plyr") # imports used by namespace ns
-getNamespaceExports("plyr") # names exported by ns
-tail(ls(getNamespace("plyr")))
-
-names(Filter(is.function, mget(
-  ls(getNamespace("plyr")), envir = getNamespace("plyr"))))
-
-names(Filter(Negate(is.function), mget(
-  ls(getNamespace("plyr")), envir = getNamespace("plyr"))))
 
 # some package examples ====
 
