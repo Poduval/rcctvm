@@ -1,3 +1,3 @@
-# rcctvm 0.0.3
+# rcctvm 0.0.1
 
 * Initial CRAN submission.
