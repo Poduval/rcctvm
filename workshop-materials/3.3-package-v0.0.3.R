@@ -1,3 +1,5 @@
+# ============================ RESTART R SESSION =========================== #
+
 # initialize ====
 source("workshop-materials/0-start-clean.R")
 library(devtools)
@@ -186,3 +188,4 @@ predict_risk(sex = c("female", "male"),  wbc = c(2.1, 4.3),
   treatment = c("new", "standard")))
 
 predict_risk(x = testdata)
+

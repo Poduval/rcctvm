@@ -1,0 +1,70 @@
+---
+title: "rcctvm"   
+subtitle: "A package for cancer epidemiology and biostatistics"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{rcctvm}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## About
+The Division of Cancer Epidemiology and Biostatistics applies, develops, and teaches the skills needed to understand the determinants of cancer and implements dedicated initiatives to:
+
+- Increase knowledge and application of modern epidemiological and bio-statistical techniques among postgraduate students and researchers.
+- Increase the quality and output of research in RCC
+- Provide bio-statistical consulting and statistical analysis for their scientific publication & thesis preparation
+- Conduct Cancer Epidemiological Research projects in collaboration with Scientific Organizations.
+- Provide reliable and a high quality cancer intelligence service through hospital and population-based cancer registries.
+- Contribute methodological services to individual research projects from protocol development to project finalization
+- Conduct Density mapping and environmental factors of cancer in South Kerala using Geographic Information System (GIS).
+
+## Basic features
+
+Some basic functions of the package are:
+```{r setup}
+library(rcctvm)
+add2vars(2, 3)
+```
+
+## Survival model
+
+The model predicts impact of various factors on leukemia remission using survival analysis techniques. The Cox proportional hazards model allowed us to quantify the influence of multiple predictors on remission outcomes
+
+## Model predictions
+
+The easiest way to use the model is to call the `predict_risk` function. The function takes a number of arguments
+
+  - `sex`: 'male' or 'female'
+  - `wbc`: white blood cell count
+  - `treatment`: treatment type; `new` or `standard`
+
+```{r eval=FALSE}
+predict_risk(sex = "female", wbc = 2.1, treatment = "new")
+predict_risk(sex = "male", wbc = 4.3, treatment = "standard")
+```
+
+One can pass multiple values for each of the arguments. The function will return a vector with the predicted risk for each combination of the input values.
+
+```{r eval=FALSE}
+predict_risk(sex = c("female", "male"),  wbc = c(2.1, 4.3),
+             treatment = c("new", "standard"))
+```
+
+A `data.frame` can also be passed to the function. The function will use the columns of the `data.frame``` as input values for the model. The column names should match the argument names of the `predict_risk` function.
+
+```{r eval=FALSE}
+testdata <- data.frame(
+  sex = c("female", "male"),
+  wbc = c(2.1, 4.3),
+  treatment = c("new", "standard"))
+
+predict_risk(x = testdata)
+```

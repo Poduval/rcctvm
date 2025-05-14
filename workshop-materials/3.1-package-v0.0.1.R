@@ -1,3 +1,5 @@
+# ============================ RESTART R SESSION =========================== #
+
 # initialize ====
 source("workshop-materials/0-start-clean.R")
 library(devtools)
@@ -63,9 +65,7 @@ document() # package documentation
 use_news_md(open = FALSE)
 
 #' this is used to avoid manual modifications every time
-cat(news_text <- c(
-  "\n## Version 0.0.1", "",
-  "- Initial GitHub submission."))
+cat(news_text <- c("\n## Version 0.0.1", "", "- Initial GitHub submission."))
 
 write(news_text, file = "NEWS.md", append = FALSE)
 

@@ -1,3 +1,5 @@
+# ============================ RESTART R SESSION =========================== #
+
 # initialize ====
 source("workshop-materials/0-start-clean.R")
 library(devtools)
