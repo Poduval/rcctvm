@@ -145,13 +145,9 @@ file.copy("workshop-materials/package-files/CITATION",
 file.copy("data-raw/CITATION", "inst/CITATION", overwrite = TRUE)
 
 ## vignette ====
-use_vignette("add2vars", title = "Adding 2 variables")
-file.copy("workshop-materials/package-files/vignette-add2vars.Rmd",
-          "vignettes/add2vars.Rmd", overwrite = TRUE)
-
-use_vignette("predict_risk", title = "Predict risk of Leukemia remission")
-file.copy("workshop-materials/package-files/vignette-predict_risk.Rmd",
-          "vignettes/predict_risk.Rmd", overwrite = TRUE)
+use_vignette("rcctvm", title = "rcctvm")
+file.copy("workshop-materials/package-files/vignette-rcctvm.Rmd",
+          "vignettes/rcctvm.Rmd", overwrite = TRUE)
 
 build_vignettes()
 

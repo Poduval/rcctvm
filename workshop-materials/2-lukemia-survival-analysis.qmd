@@ -117,7 +117,7 @@ fit_km |>
 The survival probability is at 12 time units (e.g., months) is approximately 0.5, indicating that about half of the patients are expected to survive beyond this time point. It says that we can be `95%` confident that the true median survival time is between 8 and 22 units.
 
 ## Cox proportional hazards regression
-`Cox regression` enables simultaneous assessment of multiple variables' impact on leukemia remission. For our dataset, this means quantifying how `sex`, `logWBC`, and treatment protocol collectively influence hazard rates while controlling for confounding factors. This semi-parametric approach offers flexibility without requiring specification of the baseline hazard function, making it ideal for identifying significant predictors of leukemia remission.
+`Cox regression` enables simultaneous assessment of multiple variables' impact on leukemia remission. For our dataset, this means quantifying how `sex`, `logWBC`, and treatment protocol (`rx`) collectively influence hazard rates while controlling for confounding factors. This semi-parametric approach offers flexibility without requiring specification of the baseline hazard function, making it ideal for identifying significant predictors of leukemia remission.
 
 The Cox proportional hazards model specifies the hazard function as
 
