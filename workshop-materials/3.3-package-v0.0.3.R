@@ -63,7 +63,7 @@ file.copy(from = "workshop-materials/package-files/data-metaTable.R",
 source("data-raw/metaTable.R", verbose = FALSE)
 metaTable
 
-# =========== V0.0.2 add-on =================== #
+# =========== V0.0.3 add-on =================== #
 
 # model ====
 
