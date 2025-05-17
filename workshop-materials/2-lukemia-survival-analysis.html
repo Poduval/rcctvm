@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.4.550">
 
   <meta name="author" content="Rakesh Poduval">
-  <meta name="dcterms.date" content="2025-05-14">
+  <meta name="dcterms.date" content="2025-05-17">
   <title>Survival analysis of Leukemia Remission data</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -404,7 +404,7 @@ Rakesh Poduval
 </div>
 </div>
 
-  <p class="date">2025-05-14</p>
+  <p class="date">2025-05-17</p>
 </section>
 <section id="about" class="slide level2">
 <h2>About</h2>
@@ -474,8 +474,7 @@ S(t) = \prod_{i: t_i \le t} \left(1 - \frac{d_i}{n_i} \right)
 <h4 id="fitting-the-kaplan-meier-model">fitting the Kaplan-Meier model</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(survival)</span>
-<span id="cb3-2"><a href=""></a><span class="fu">library</span>(survminer)</span>
-<span id="cb3-3"><a href=""></a>fit_km <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> data_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href=""></a><span class="fu">library</span>(survminer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside><div>
 <p>This step-function estimation accounts for both events and censored observations.</p>
@@ -483,22 +482,58 @@ S(t) = \prod_{i: t_i \le t} \left(1 - \frac{d_i}{n_i} \right)
 <section id="section" class="slide level2">
 <h2></h2>
 <h4 id="plotting-the-kaplan-meier-survival-curve">Plotting the Kaplan-Meier survival curve</h4>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># fit_km</span></span>
 <span id="cb4-2"><a href=""></a><span class="co">#  n events median 0.95LCL 0.95UCL</span></span>
 <span id="cb4-3"><a href=""></a><span class="co"># 42     30     12       8      22</span></span>
-<span id="cb4-4"><a href=""></a></span>
-<span id="cb4-5"><a href=""></a>fit_km <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href=""></a>fit_km1 <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> data_raw)</span>
+<span id="cb4-5"><a href=""></a>fit_km1 <span class="sc">|&gt;</span></span>
 <span id="cb4-6"><a href=""></a>  <span class="fu">ggsurvplot</span>(<span class="at">data =</span> data_raw,</span>
 <span id="cb4-7"><a href=""></a>             <span class="at">xlab =</span> <span class="st">"time"</span>, <span class="at">ylab =</span> <span class="st">"survival probability"</span>,</span>
-<span id="cb4-8"><a href=""></a>             <span class="at">title =</span> <span class="st">"Kaplan-Meier survival curve"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
+<span id="cb4-8"><a href=""></a>             <span class="at">title =</span> <span class="st">"Kaplan-Meier survival curve"</span>)</span>
+<span id="cb4-9"><a href=""></a>fit_km2 <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">~</span> sex, <span class="at">data =</span> data_raw)</span>
+<span id="cb4-10"><a href=""></a>fit_km2 <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href=""></a>  <span class="fu">ggsurvplot</span>(<span class="at">data =</span> data_raw,</span>
+<span id="cb4-12"><a href=""></a>             <span class="at">xlab =</span> <span class="st">"time"</span>, <span class="at">ylab =</span> <span class="st">"survival probability"</span>,</span>
+<span id="cb4-13"><a href=""></a>             <span class="at">title =</span> <span class="st">"Survival difference between gender"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="2-lukemia-survival-analysis_files/figure-revealjs/unnamed-chunk-3-1.png" width="1152"></p>
+</figure>
 </div>
-<img data-src="2-lukemia-survival-analysis_files/figure-revealjs/unnamed-chunk-3-1.png" width="1152" class="r-stretch"><p>The survival probability is at 12 time units (e.g., months) is approximately 0.5, indicating that about half of the patients are expected to survive beyond this time point. It says that we can be <code>95%</code> confident that the true median survival time is between 8 and 22 units.</p>
+</div>
+</div>
+<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="2-lukemia-survival-analysis_files/figure-revealjs/unnamed-chunk-4-1.png" width="1152"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">survdiff</span>(<span class="fu">Surv</span>(time, status <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">~</span> sex, <span class="at">data =</span> data_raw)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+survdiff(formula = Surv(time, status == 1) ~ sex, data = data_raw)
+
+       N Observed Expected (O-E)^2/E (O-E)^2/V
+sex=0 22       16     14.2     0.240     0.557
+sex=1 20       14     15.8     0.214     0.557
+
+ Chisq= 0.6  on 1 degrees of freedom, p= 0.5 </code></pre>
+</div>
+</div>
 </section>
 <section id="cox-proportional-hazards-regression" class="slide level2">
 <h2>Cox proportional hazards regression</h2>
-<p><code>Cox regression</code> enables simultaneous assessment of multiple variables’ impact on leukemia remission. For our dataset, this means quantifying how <code>sex</code>, <code>logWBC</code>, and treatment protocol collectively influence hazard rates while controlling for confounding factors. This semi-parametric approach offers flexibility without requiring specification of the baseline hazard function, making it ideal for identifying significant predictors of leukemia remission.</p>
+<p><code>Cox regression</code> enables simultaneous assessment of multiple variables’ impact on leukemia remission. For our dataset, this means quantifying how <code>sex</code>, <code>logWBC</code>, and treatment protocol (<code>rx</code>) collectively influence hazard rates while controlling for confounding factors. This semi-parametric approach offers flexibility without requiring specification of the baseline hazard function, making it ideal for identifying significant predictors of leukemia remission.</p>
 <p>The Cox proportional hazards model specifies the hazard function as</p>
 <p><span class="math display">\[
 h(t) = h_0(t) \times \exp(\beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p),
@@ -506,8 +541,8 @@ h(t) = h_0(t) \times \exp(\beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_p X_p),
 <p>where <span class="math inline">\(h_0(t)\)</span> is the baseline hazard and <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, , <span class="math inline">\(X_p\)</span> are the covariates. Coefficient estimation is performed using partial likelihood, which allows for the computation of hazard ratios associated with each predictor. To ensure the model’s validity, the proportional hazards assumption is evaluated using Schoenfeld residuals. Model diagnostics, such as martingale residuals and influence measures, are employed to assess the adequacy of the model fit and identify potential outliers or influential observations.</p>
 <h4 id="fitting-the-cox-model">fitting the Cox model</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>fit_cox <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> sex <span class="sc">+</span> logWBC <span class="sc">+</span> rx, <span class="at">data =</span> data_raw)</span>
-<span id="cb5-2"><a href=""></a>fit_cox</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>fit_cox <span class="ot">&lt;-</span> <span class="fu">coxph</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> sex <span class="sc">+</span> logWBC <span class="sc">+</span> rx, <span class="at">data =</span> data_raw)</span>
+<span id="cb7-2"><a href=""></a>fit_cox</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 coxph(formula = Surv(time, status) ~ sex + logWBC + rx, data = data_raw)
@@ -524,20 +559,9 @@ n= 42, number of events= 30 </code></pre>
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
-<h4 id="plotting-the-cox-model">plotting the Cox model</h4>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">survfit</span>(fit_cox) <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href=""></a>  <span class="fu">ggsurvplot</span>(<span class="at">data =</span> data_raw,</span>
-<span id="cb7-3"><a href=""></a>             <span class="at">xlab =</span> <span class="st">"time"</span>, <span class="at">ylab =</span> <span class="st">"survival probability"</span>,</span>
-<span id="cb7-4"><a href=""></a>             <span class="at">title =</span> <span class="st">"Cox proportional hazards model"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="2-lukemia-survival-analysis_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
-<section id="cox-proportional-hazards-regression---analysis-ii" class="slide level2">
-<h2>Cox proportional hazards regression - analysis II</h2>
 <h4 id="model-summary">model summary</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">summary</span>(fit_cox)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">summary</span>(fit_cox)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
 coxph(formula = Surv(time, status) ~ sex + logWBC + rx, data = data_raw)
@@ -565,91 +589,12 @@ Score (logrank) test = 48.01  on 3 df,   p=2e-10</code></pre>
 <p>The coefficients indicate the effect of each predictor on the hazard of the event (remission). For example, a coefficient for <code>logWBC</code> of <code>1.6819</code> suggests that as the <code>logWBC</code> increases, the hazard of the event increases significantly. Hazard Ratios <span class="math inline">\(exp(coef)\)</span> represent the multiplicative change in the hazard for a one-unit increase in the predictor. For instance, the hazard ratio for <code>logWBC</code> is approximately <code>5.38</code>, indicating that higher WBC counts are associated with a higher risk of not achieving remission. <code>p-value</code> indicates <code>logWBC</code> and treatment <code>rx</code> are significant predictors, while <code>sex</code> is not.</p>
 <h4 id="predicting-risk-scores">predicting risk scores</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>data_raw<span class="sc">$</span>risk <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_cox, <span class="at">newdata =</span> data_raw, <span class="at">type =</span> <span class="st">'risk'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>data_raw<span class="sc">$</span>risk <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_cox, <span class="at">newdata =</span> data_raw, <span class="at">type =</span> <span class="st">'risk'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="model-validation---i" class="slide level2">
-<h2>Model validation - I</h2>
-<p>There are various ways to measure model performance. Concordance Index (C-index) is a summary metric of predictive discrimination. The values ranges from <code>0.5</code> (random) to <code>1.0</code> (perfect prediction). <code>0.7</code> is generally considered acceptable. We observe a C-index of 0.8513324, 0.0405009, indicating that the model has good predictive ability.</p>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb11-2"><a href=""></a>data_raw <span class="sc">|&gt;</span> </span>
-<span id="cb11-3"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> risk, <span class="at">fill =</span> <span class="fu">factor</span>(status))) <span class="sc">+</span></span>
-<span id="cb11-4"><a href=""></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb11-5"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Risk score distribution by event status"</span>,</span>
-<span id="cb11-6"><a href=""></a>       <span class="at">x =</span> <span class="st">"Predicted risk score"</span>,</span>
-<span id="cb11-7"><a href=""></a>       <span class="at">fill =</span> <span class="st">"status (1 = event)"</span>) <span class="sc">+</span></span>
-<span id="cb11-8"><a href=""></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb11-9"><a href=""></a>data_raw <span class="sc">|&gt;</span> </span>
-<span id="cb11-10"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">status =</span> <span class="fu">ifelse</span>(status <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"event"</span>, <span class="st">"censored"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb11-11"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> risk, <span class="at">fill =</span> status)) <span class="sc">+</span></span>
-<span id="cb11-12"><a href=""></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb11-13"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Density plot of risk scores by event status"</span>,</span>
-<span id="cb11-14"><a href=""></a>       <span class="at">x =</span> <span class="st">"risk"</span>, <span class="at">fill =</span> <span class="st">"status"</span>) <span class="sc">+</span></span>
-<span id="cb11-15"><a href=""></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="2-lukemia-survival-analysis_files/figure-revealjs/unnamed-chunk-8-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="2-lukemia-survival-analysis_files/figure-revealjs/unnamed-chunk-9-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="model-validation---ii" class="slide level2">
-<h2>Model validation - II</h2>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># Create tertiles of risk</span></span>
-<span id="cb12-2"><a href=""></a>data_raw<span class="sc">$</span>risk_group <span class="ot">&lt;-</span> <span class="fu">with</span>(</span>
-<span id="cb12-3"><a href=""></a>  data_raw, <span class="fu">cut</span>(risk, <span class="at">breaks =</span> <span class="fu">quantile</span>(risk, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">2</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span>)),</span>
-<span id="cb12-4"><a href=""></a>                <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span>),</span>
-<span id="cb12-5"><a href=""></a>                <span class="at">include.lowest =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb12-6"><a href=""></a></span>
-<span id="cb12-7"><a href=""></a>fit_km_risk <span class="ot">&lt;-</span> <span class="fu">survfit</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> risk_group, <span class="at">data =</span> data_raw)</span>
-<span id="cb12-8"><a href=""></a>fit_km_risk <span class="sc">|&gt;</span> </span>
-<span id="cb12-9"><a href=""></a>  <span class="fu">ggsurvplot</span>(<span class="at">data =</span> data_raw, <span class="at">pval =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb12-10"><a href=""></a>             <span class="at">title =</span> <span class="st">"Kaplan–Meier Curves by Risk Group"</span>,</span>
-<span id="cb12-11"><a href=""></a>             <span class="at">risk.table =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-12"><a href=""></a>data_raw <span class="sc">|&gt;</span> </span>
-<span id="cb12-13"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">sex =</span> <span class="fu">ifelse</span>(sex <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"male"</span>, <span class="st">"female"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb12-14"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> logWBC, <span class="at">y =</span> risk, <span class="at">group =</span> sex, <span class="at">colour =</span> sex)) <span class="sc">+</span></span>
-<span id="cb12-15"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb12-16"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"log WBC"</span>, <span class="at">y =</span> <span class="st">"risk"</span>) <span class="sc">+</span></span>
-<span id="cb12-17"><a href=""></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="2-lukemia-survival-analysis_files/figure-revealjs/unnamed-chunk-10-1.png" width="1152"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="2-lukemia-survival-analysis_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
+<section id="model-validation" class="slide level2">
+<h2>Model validation</h2>
+<p>There are various ways to measure model performance. Concordance Index (C-index) is a summary metric of predictive discrimination. The values ranges from <code>0.5</code> (random) to <code>1.0</code> (perfect prediction). <code>0.7</code> is generally considered acceptable. We observe a C-index of <code>0.851</code>, indicating that the model has good predictive ability.</p>
 </section>
 <section id="conclusion-next-steps" class="slide level2">
 <h2>Conclusion &amp; next steps</h2>

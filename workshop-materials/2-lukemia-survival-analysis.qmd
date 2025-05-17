@@ -92,10 +92,11 @@ This step-function estimation accounts for both events and censored observations
 #| 
 library(survival)
 library(survminer)
-fit_km <- survfit(Surv(time, status) ~ 1, data = data_raw)
 ```
 ## 
 #### Plotting the Kaplan-Meier survival curve
+
+::: {layout-ncol=2}
 
 ```{r}
 #| echo: true
@@ -107,14 +108,37 @@ fit_km <- survfit(Surv(time, status) ~ 1, data = data_raw)
 # fit_km
 #  n events median 0.95LCL 0.95UCL
 # 42     30     12       8      22
-
-fit_km |>
+fit_km1 <- survfit(Surv(time, status == 1) ~ 1, data = data_raw)
+fit_km1 |>
   ggsurvplot(data = data_raw,
              xlab = "time", ylab = "survival probability",
              title = "Kaplan-Meier survival curve")
+
 ```
 
-The survival probability is at 12 time units (e.g., months) is approximately 0.5, indicating that about half of the patients are expected to survive beyond this time point. It says that we can be `95%` confident that the true median survival time is between 8 and 22 units.
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 6
+#| 
+fit_km2 <- survfit(Surv(time, status == 1) ~ sex, data = data_raw)
+fit_km2 |>
+  ggsurvplot(data = data_raw,
+             xlab = "time", ylab = "survival probability",
+             title = "Survival difference between gender")
+```
+::: 
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 6
+survdiff(Surv(time, status == 1) ~ sex, data = data_raw)
+```
 
 ## Cox proportional hazards regression
 `Cox regression` enables simultaneous assessment of multiple variables' impact on leukemia remission. For our dataset, this means quantifying how `sex`, `logWBC`, and treatment protocol (`rx`) collectively influence hazard rates while controlling for confounding factors. This semi-parametric approach offers flexibility without requiring specification of the baseline hazard function, making it ideal for identifying significant predictors of leukemia remission.
@@ -139,20 +163,6 @@ fit_cox
 ```
 
 ## 
-#### plotting the Cox model
-
-```{r}
-#| echo: true
-#| message: false
-#| warning: false
-#| 
-survfit(fit_cox) |> 
-  ggsurvplot(data = data_raw,
-             xlab = "time", ylab = "survival probability",
-             title = "Cox proportional hazards model")
-```
-
-## Cox proportional hazards regression - analysis II
 
 #### model summary
 
@@ -174,83 +184,9 @@ The coefficients indicate the effect of each predictor on the hazard of the even
 data_raw$risk <- predict(fit_cox, newdata = data_raw, type = 'risk')
 ```
 
-## Model validation - I
+## Model validation
 
-There are various ways to measure model performance. Concordance Index (C-index) is a summary metric of predictive discrimination. The values ranges from `0.5` (random) to `1.0` (perfect prediction). `0.7` is generally considered acceptable. We observe a C-index of `r summary(fit_cox)$concordance`, indicating that the model has good predictive ability.
-
-::: {layout-ncol=2}
-```{r}
-#| echo: true
-#| message: false
-#| warning: false
-#| fig-width: 6
-#| fig-height: 4
-#| 
-library(ggplot2)
-data_raw |> 
-  ggplot(aes(x = risk, fill = factor(status))) +
-  geom_density(alpha = 0.5) +
-  labs(title = "Risk score distribution by event status",
-       x = "Predicted risk score",
-       fill = "status (1 = event)") +
-  theme_minimal()
-```
-
-```{r}
-#| echo: true
-#| message: false
-#| warning: false
-#| fig-width: 6
-#| fig-height: 4
-#| 
-data_raw |> 
-  mutate(status = ifelse(status == 1, "event", "censored")) |>
-  ggplot(aes(x = risk, fill = status)) +
-  geom_density(alpha = 0.5) +
-  labs(title = "Density plot of risk scores by event status",
-       x = "risk", fill = "status") +
-  theme_minimal()
-```
-:::
-
-## Model validation - II
-
-::: {layout-ncol=2}
-```{r}
-#| echo: true
-#| message: false
-#| warning: false
-#| fig-width: 12
-#| fig-height: 8
-#| 
-# Create tertiles of risk
-data_raw$risk_group <- with(
-  data_raw, cut(risk, breaks = quantile(risk, probs = c(0, 1/3, 2/3, 1)),
-                labels = c("low", "medium", "high"),
-                include.lowest = TRUE))
-
-fit_km_risk <- survfit(Surv(time, status) ~ risk_group, data = data_raw)
-fit_km_risk |> 
-  ggsurvplot(data = data_raw, pval = TRUE,
-             title = "Kaplan–Meier Curves by Risk Group",
-             risk.table = TRUE)
-```
-
-```{r}
-#| echo: true
-#| message: false
-#| warning: false
-#| fig-width: 10
-#| fig-height: 6
-#| 
-data_raw |> 
-  mutate(sex = ifelse(sex == 1, "male", "female")) |> 
-  ggplot(aes(x = logWBC, y = risk, group = sex, colour = sex)) +
-  geom_point() + geom_line() +
-  labs(x = "log WBC", y = "risk") +
-  theme_minimal()
-```
-:::
+There are various ways to measure model performance. Concordance Index (C-index) is a summary metric of predictive discrimination. The values ranges from `0.5` (random) to `1.0` (perfect prediction). `0.7` is generally considered acceptable. We observe a C-index of ``r round(summary(fit_cox)$concordance["C"], 3)``, indicating that the model has good predictive ability.
 
 ## Conclusion & next steps
 
