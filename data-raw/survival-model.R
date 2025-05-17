@@ -9,4 +9,4 @@ survival_data <- read.xlsx(
 
 library(survival)
 
-.internal_model <- coxph(Surv(time, status) ~ sex + logWBC + rx, data = survival_data)
+.internal_model <- coxph(Surv(time, status == 1) ~ sex + logWBC + rx, data = survival_data)
